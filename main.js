@@ -23,20 +23,26 @@ function submitIssue(e) {
 
 const closeIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  const currentIssue = issues.find(issue => issue.id === id);
+  const currentIssue = issues.find(issue => parseInt(issue.id) === id);
   currentIssue.status = 'Closed';
-  localStorage.setItem('issues', JSON.stringify(issues));
   fetchIssues();
+  localStorage.setItem('issues', JSON.stringify(issues));
 }
 
 const deleteIssue = id => {
   const issues = JSON.parse(localStorage.getItem('issues'));
-  const remainingIssues = issues.filter(issue.id !== id)
+  const remainingIssues = issues.filter(issue => parseInt(issue.id) !== id)
   localStorage.setItem('issues', JSON.stringify(remainingIssues));
+  document.getElementById('des').style.textDecoration = 'line-through';
+  location.reload();
 }
 
 const fetchIssues = () => {
   const issues = JSON.parse(localStorage.getItem('issues'));
+  if (issues === null) {
+    console.log('No issue found');
+    return;
+  }
   const issuesList = document.getElementById('issuesList');
   issuesList.innerHTML = '';
 
@@ -46,10 +52,10 @@ const fetchIssues = () => {
     issuesList.innerHTML += `<div class="well">
                               <h6>Issue ID: ${id} </h6>
                               <p><span class="label label-info"> ${status} </span></p>
-                              <h3> ${description} </h3>
+                              <h3 id="des"> ${description} </h3>
                               <p><span class="glyphicon glyphicon-time"></span> ${severity}</p>
                               <p><span class="glyphicon glyphicon-user"></span> ${assignedTo}</p>
-                              <a href="#" onclick="setStatusClosed(${id})" class="btn btn-warning">Close</a>
+                              <a href="#" onclick="closeIssue(${id})" class="btn btn-warning">Close</a>
                               <a href="#" onclick="deleteIssue(${id})" class="btn btn-danger">Delete</a>
                               </div>`;
   }
