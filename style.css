@@ -19,3 +19,7 @@ h1{
 h1{
     height: 30px;
 }
+.padding{
+    left: auto;
+    right: 30px;
+}
