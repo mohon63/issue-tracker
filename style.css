@@ -33,3 +33,10 @@ h1{
     left: auto;
     right: 30px;
 }
+h1{
+    height: 30px;
+}
+.padding{
+    left: auto;
+    right: 30px;
+}
