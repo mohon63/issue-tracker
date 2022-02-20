@@ -58,3 +58,10 @@ h1{
 .margin{
     left: auto;
 }
+.padding{
+    left: auto;
+    right: 30px;
+}
+.margin{
+    left: auto;
+}
